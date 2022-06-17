@@ -175,7 +175,7 @@ export async function handler(chatUpdate) {
             } else
                 global.db.data.users[m.sender] = {
                     exp: 0,
-                    limit: 99999999999999,
+                    limit: Infinity,
                     lastclaim: 0,
                     registered: false,
                     name: m.name,
@@ -191,7 +191,7 @@ export async function handler(chatUpdate) {
 
                     money: 0,
                     health: 100,
-                    limit: 99999999999999,
+                    limit: Infinity,
                     potion: 10,
                     trash: 0,
                     wood: 0,
@@ -249,12 +249,12 @@ export async function handler(chatUpdate) {
                 if (!('isBanned' in chat))
                     chat.isBanned = false
                 if (!('welcome' in chat))
-                    chat.welcome = true
+                    chat.welcome = false
                 if (!('detect' in chat))
                     chat.detect = true
-                if (!('sWelcome' in chat))
+                if (!('ssWelcome' in chat))
                     chat.sWelcome = ''
-                if (!('sBye' in chat))
+                if (!('ssBye' in chat))
                     chat.sBye = ''
                 if (!('sPromote' in chat))
                     chat.sPromote = ''
@@ -621,7 +621,7 @@ export async function participantsUpdate({ id, participants, action }) {
     switch (action) {
         case 'add':
         case 'remove':
-            if (chat.welcome) {
+            if (chat.wel) {
                 let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                 for (let user of participants) {
                     let pp = './src/avatar_contact.png'
@@ -632,7 +632,7 @@ export async function participantsUpdate({ id, participants, action }) {
                         text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || '𝗛𝗶 𝗺𝘆 𝗹𝗼𝘃𝗲𝗹𝘆 𝗳𝗿𝗶𝗲𝗻𝗱, @user!\n𝗪𝗲𝗹𝗰𝗼𝗺𝗲 𝘁𝗼 @subject\n\n@desc\𝗳𝗲𝗲𝗹 𝗮𝘁 𝗵𝗼𝗺𝗲, 𝗯𝘆 𝗼𝗳𝗳𝗲𝗻𝘀𝗶𝘃𝗲 𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝗵𝗮𝗰𝗸𝗶𝗻𝗴 𝗶𝘀 𝗼𝘂𝗿 𝗹𝗲𝗴𝗮𝗰𝘆').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
                             (chat.sBye || this.bye || conn.bye || '𝗕𝘆𝗲 𝗺𝘆 𝗹𝗼𝘃𝗲𝗹𝘆 𝗳𝗿𝗶𝗲𝗻𝗱 @user!\n𝗗𝗼𝗻𝘁 𝗰𝗼𝗺𝗲 𝗯𝗮𝗰𝗸 𝗵𝗲𝗿𝗲')).replace('@user', '@' + user.split('@')[0])
                             let apii = await this.getFile(pp)
-                            this.sendButton(id, text, groupMetadata.subject, apii.data, [[(action == 'add' ? 'WELCOME' : 'BYE'), 'ura']], '',  { mentions: [user], asLocation: true })
+                            //this.sendButton(id, text, groupMetadata.subject, apii.data, [[(action == 'add' ? 'WELCOME' : 'BYE'), 'ura']], '',  { mentions: [user], asLocation: true })
                         }
                 }
             }
