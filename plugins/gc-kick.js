@@ -13,5 +13,6 @@ handler.tags = ['group']
 handler.command = /^(kick|remove|\-)$/i
 handler.group = true
 handler.botAdmin = true
+handler.owner = true
 export default handler
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
