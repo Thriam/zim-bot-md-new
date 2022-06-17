@@ -1,4 +1,4 @@
-let media = './drips.jpg'
+let media = './drips.jpeg'
 let handler = async (m, { conn, command }) => conn.sendButton(m.chat, `
 *Hello 👋🏻, join the official groups to have a good time using the Bot*
 
