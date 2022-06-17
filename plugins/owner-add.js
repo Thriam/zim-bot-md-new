@@ -49,7 +49,7 @@ handler.command = ['add']
 
 handler.group = true
 handler.botAdmin = true
-
+handler.owner = true
 
 export default handler
 
